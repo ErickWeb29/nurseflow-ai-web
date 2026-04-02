@@ -1004,6 +1004,7 @@
       .hamburger { display: flex; }
       .footer-top { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2.4rem; }
+      .about-pillars { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -1018,7 +1019,7 @@
     <a href="#features">Features</a>
     <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
-    <a href="about.html">About Us</a>
+    <a href="#about">About Us</a>
     <a href="#contact" class="nav-cta">Book a Demo</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -1029,7 +1030,7 @@
   <a href="#features" class="mobile-link">Features</a>
   <a href="#how" class="mobile-link">How It Works</a>
   <a href="#pricing" class="mobile-link">Pricing</a>
-  <a href="about.html" class="mobile-link">About Us</a>
+  <a href="#about" class="mobile-link">About Us</a>
   <a href="#contact" class="nav-cta mobile-link">Book a Demo</a>
 </div>
 
@@ -1282,6 +1283,37 @@
       <h3>Monthly Creative Engine</h3>
       <p>Every month: 2 static ad creatives and 1 short-form video ad. Specialty-specific messaging with pay-based hooks ("Up to $3,000/week") proven to drive qualified clicks.</p>
       <span class="feature-tag">→ 2 Statics + 1 Video / Month</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT US ─── -->
+<section id="about" style="padding: 100px 6vw; background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-deep) 100%);">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <div class="section-label reveal" style="text-align:center; margin-bottom: 16px;">Our Story</div>
+    <h2 class="reveal" style="font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; text-align: center; line-height: 1.2; margin-bottom: 56px;">Healthcare Staffing, <span style="display:inline-block; padding-bottom:0.08em; background: linear-gradient(135deg, var(--teal-light), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Refined by Experience</span></h2>
+    <div class="reveal" style="background: linear-gradient(135deg, rgba(13,45,78,0.6), rgba(10,32,53,0.8)); border: 1px solid rgba(0,180,212,0.15); border-radius: 20px; padding: 56px 64px; position: relative; overflow: hidden;">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--teal-dark), var(--teal), var(--teal-light));"></div>
+      <p style="font-size: 1.05rem; color: var(--gray-200); line-height: 1.85; margin-bottom: 24px;">At NurseFlow, we are healthcare staffing veterans first and technology pioneers second. Born from years of hands-on experience in medical placement and the development of specialized ATS platforms, we have a unique, inside-out perspective on the specific pains and bottlenecks staffing agencies face today.</p>
+      <p style="font-size: 1.05rem; color: var(--gray-200); line-height: 1.85; margin-bottom: 24px;">Our mission is to bridge the gap between traditional recruiting and modern efficiency. By blending our deep roots in the medical staffing industry with cutting-edge AI, we've built a platform that addresses the real-world needs of recruiters. We understand that the difference between a filled shift and a missed opportunity comes down to having the right tools — so we created them.</p>
+      <p style="font-size: 1.05rem; color: var(--gray-200); line-height: 1.85;">We empower agencies to scale faster and smarter by removing the friction from the staffing process, allowing you to focus on what matters most: connecting professionals with the facilities that need them.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;" class="reveal about-pillars">
+      <div style="background: rgba(13,45,78,0.5); border: 1px solid rgba(0,180,212,0.12); border-radius: 14px; padding: 32px 28px;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">🏥</div>
+        <h3 style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;">Industry Roots</h3>
+        <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.65;">Built by staffing agency veterans with real-world experience in medical placement and ATS development.</p>
+      </div>
+      <div style="background: rgba(13,45,78,0.5); border: 1px solid rgba(0,180,212,0.12); border-radius: 14px; padding: 32px 28px;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">🤖</div>
+        <h3 style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;">AI-Powered Precision</h3>
+        <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.65;">Cutting-edge qualification and automation layered on workflows that match how recruiters actually operate.</p>
+      </div>
+      <div style="background: rgba(13,45,78,0.5); border: 1px solid rgba(0,180,212,0.12); border-radius: 14px; padding: 32px 28px;">
+        <div style="font-size: 2rem; margin-bottom: 14px;">📈</div>
+        <h3 style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;">Scalable by Design</h3>
+        <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.65;">Every system we build grows with your agency — from your first 10 leads to your first 1,000.</p>
+      </div>
     </div>
   </div>
 </section>

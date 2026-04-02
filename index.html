@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NurseFlow.AI — Automated Nurse Acquisition System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;1,6..12,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:   #061726;
+      --navy-dark:   #0a2035;
+      --navy-mid:    #0d2d4e;
+      --navy-light:  #1a4a7a;
+      --teal-dark:   #0091a8;
+      --teal:        #00b4d4;
+      --teal-light:  #4dd8e8;
+      --teal-glow:   rgba(0,180,212,0.18);
+      --teal-glow2:  rgba(0,180,212,0.06);
+      --white:       #ffffff;
+      --gray-50:     #f4f8fc;
+      --gray-100:    #e8f0f8;
+      --gray-200:    #c8d8e8;
+      --muted:       #7a9ab5;
+      --font-display: 'Outfit', sans-serif;
+      --font-body:    'Nunito Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--teal-dark); border-radius: 3px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 6vw;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: none;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo img { height: 64px; width: auto; filter: drop-shadow(0 2px 8px rgba(0,180,212,0.3)); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      color: var(--navy-deep);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal-light); }
+    .nav-cta {
+      background: var(--teal);
+      color: var(--navy-deep) !important;
+      padding: 9px 22px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--teal-light) !important; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 6vw 100px;
+      overflow: clip;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 60% 40%, rgba(0,145,168,0.22) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 50% at 10% 80%, rgba(13,45,78,0.8) 0%, transparent 60%),
+                  linear-gradient(170deg, var(--navy-deep) 0%, #0a2540 60%, #082038 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,180,212,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,212,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+    /* Floating orbs */
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      top: -100px; right: -100px;
+      background: radial-gradient(circle, rgba(0,180,212,0.15) 0%, transparent 70%);
+      animation: float1 8s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      bottom: 0; left: 10%;
+      background: radial-gradient(circle, rgba(0,145,168,0.1) 0%, transparent 70%);
+      animation: float2 10s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,20px)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 680px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,180,212,0.12);
+      border: 1px solid rgba(0,180,212,0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--teal-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+    .hero-badge span {
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: 0;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
+    }
+    .hero h1 em {
+      font-style: normal;
+      display: inline-block;
+      padding-bottom: 0.08em;
+      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 50%, #0091a8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray-200);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.7s 0.35s ease forwards;
+    }
+    .hero-ctas {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: var(--navy-deep);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(0,180,212,0);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(0,180,212,0.35);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--teal);
+      background: rgba(0,180,212,0.08);
+    }
+
+    /* Hero visual side */
+    .hero-visual {
+      position: absolute; right: 6vw; top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: clamp(300px, 38vw, 520px);
+      opacity: 0; animation: fadeInRight 0.9s 0.4s ease forwards;
+    }
+    .hero-card {
+      background: rgba(13,45,78,0.7);
+      border: 1px solid rgba(0,180,212,0.2);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .hero-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .hero-card-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+    }
+    .status-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: #4ade80;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25);
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .lead-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,180,212,0.1);
+    }
+    .lead-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .lead-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-dark), var(--navy-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--teal-light);
+      flex-shrink: 0;
+    }
+    .lead-info { flex: 1; min-width: 0; }
+    .lead-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+    .lead-spec { font-size: 0.75rem; color: var(--muted); }
+    .lead-score {
+      font-size: 0.75rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .score-high { background: rgba(74,222,128,0.15); color: #4ade80; }
+    .score-med  { background: rgba(0,180,212,0.15);  color: var(--teal-light); }
+
+    .hero-stats {
+      display: flex; gap: 0;
+      margin-top: 16px;
+      border-top: 1px solid rgba(0,180,212,0.12);
+      padding-top: 16px;
+    }
+    .hero-stat {
+      flex: 1;
+      text-align: center;
+      border-right: 1px solid rgba(0,180,212,0.12);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--teal-light);
+      display: block;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .hero-stat-label {
+      font-size: 0.68rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeInRight { from { opacity:0; transform: translate(40px,-50%); } to { opacity:1; transform: translate(0,-50%); } }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      overflow: hidden;
+      background: rgba(0,180,212,0.06);
+      border-top: 1px solid rgba(0,180,212,0.15);
+      border-bottom: 1px solid rgba(0,180,212,0.15);
+      padding: 16px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 60px;
+      animation: marquee 28s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .marquee-item svg { color: var(--teal); opacity: 0.8; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 6vw; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 28px; height: 2px;
+      background: var(--teal);
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: 0;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray-200);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem {
+      background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+      position: relative;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 60px;
+    }
+    .problem-list { list-style: none; }
+    .problem-list li {
+      display: flex; gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .problem-list li:last-child { border-bottom: none; }
+    .problem-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 10px;
+      background: rgba(255,80,80,0.1);
+      border: 1px solid rgba(255,80,80,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .problem-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    .problem-text p { font-size: 0.9rem; color: var(--muted); }
+
+    .solution-box {
+      background: rgba(0,180,212,0.06);
+      border: 1px solid rgba(0,180,212,0.2);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-box::before {
+      content: '';
+      position: absolute; top: -1px; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal-light));
+    }
+    .solution-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+    }
+    .solution-box p {
+      color: var(--gray-200);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .solution-metrics {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .metric-box {
+      background: rgba(0,180,212,0.08);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .metric-num {
+      font-family: var(--font-display);
+      font-size: 1.7rem; font-weight: 800;
+      color: var(--teal-light);
+      display: block;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .metric-label { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── FEATURES ─── */
+    .features { background: var(--navy-deep); }
+    .features-header { text-align: center; margin-bottom: 70px; }
+    .features-header .section-label { justify-content: center; }
+    .features-header .section-label::before { display: none; }
+    .features-header .section-sub { margin: 0 auto; text-align: center; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 1px solid rgba(0,180,212,0.12);
+      border-radius: 20px;
+      overflow: visible;
+    }
+    .feature-card {
+      padding: 40px 32px;
+      background: rgba(10,32,53,0.6);
+      transition: background 0.3s;
+      position: relative;
+      overflow: visible;
+    }
+    .feature-card:hover { background: rgba(0,180,212,0.05); }
+    .feature-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .feature-card:hover::after { transform: scaleX(1); }
+    .feature-num {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--teal-dark);
+      margin-bottom: 20px;
+    }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba(0,180,212,0.1);
+      border: 1px solid rgba(0,180,212,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    .feature-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .feature-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.04em;
+    }
+    /* Make last 2 cards span properly */
+    .feature-card:nth-child(4) { border-radius: 0 0 0 20px; }
+    .feature-card:nth-child(5) { border-radius: 0; }
+    .features-grid-bottom {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 2px; margin-top: 2px;
+      border-radius: 0 0 20px 20px;
+      overflow: visible;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-dark) 100%);
+      position: relative;
+    }
+    .how-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .steps { list-style: none; }
+    .step {
+      display: flex; gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(0,180,212,0.1);
+      position: relative;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 800;
+      color: rgba(0,180,212,0.15);
+      line-height: 1.3; flex-shrink: 0;
+      width: 54px;
+      transition: color 0.3s;
+    }
+    .step:hover .step-num { color: var(--teal); }
+    .step-body h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    .step-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    .how-visual {
+      background: rgba(13,45,78,0.5);
+      border: 1px solid rgba(0,180,212,0.18);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+    }
+    .how-visual::before {
+      content: 'LIVE PIPELINE';
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--teal);
+      color: var(--navy-deep);
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 14px;
+      border-radius: 0 0 8px 8px;
+    }
+    .pipeline-stage {
+      margin-bottom: 12px;
+    }
+    .pipeline-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.78rem; color: var(--gray-200);
+      margin-bottom: 6px;
+    }
+    .pipeline-label span { color: var(--teal-light); font-weight: 600; }
+    .pipeline-bar {
+      height: 8px;
+      background: rgba(0,180,212,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .pipeline-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal-light));
+      transition: width 1.5s ease;
+    }
+
+    .how-bottom-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 0;
+      border-top: 1px solid rgba(0,180,212,0.12);
+      margin-top: 24px;
+      padding-top: 20px;
+    }
+    .how-stat {
+      text-align: center;
+      border-right: 1px solid rgba(0,180,212,0.12);
+      padding: 0 10px;
+    }
+    .how-stat:last-child { border-right: none; }
+    .how-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--teal-light);
+      display: block;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .how-stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ─── PRICING ─── */
+    .pricing {
+      background: var(--navy-deep);
+      position: relative;
+    }
+    .pricing::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+    .pricing-header { text-align: center; margin-bottom: 70px; }
+    .pricing-header .section-label { justify-content: center; }
+    .pricing-header .section-label::before { display: none; }
+    .pricing-header .section-sub { margin: 0 auto; text-align: center; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .pricing-card {
+      border-radius: 20px;
+      padding: 36px 32px;
+      border: 1px solid rgba(0,180,212,0.15);
+      background: rgba(10,32,53,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    }
+    .pricing-card.featured {
+      background: rgba(0,180,212,0.06);
+      border-color: var(--teal);
+      transform: translateY(-8px);
+      box-shadow: 0 0 60px rgba(0,180,212,0.15), 0 24px 60px rgba(0,0,0,0.3);
+    }
+    .pricing-card.featured:hover { transform: translateY(-14px); }
+    .pricing-badge {
+      position: absolute; top: 0; right: 28px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: var(--navy-deep);
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 0 0 8px 8px;
+    }
+    .pricing-tier {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .pricing-name {
+      font-family: var(--font-display);
+      font-size: 1.7rem; font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .pricing-desc {
+      font-size: 0.85rem; color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .pricing-setup {
+      font-size: 0.8rem; color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .pricing-main {
+      display: flex; align-items: baseline; gap: 4px;
+      margin-bottom: 4px;
+    }
+    .pricing-currency { font-size: 1.2rem; font-weight: 700; color: var(--teal-light); align-self: flex-start; margin-top: 8px; }
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 2.8rem; font-weight: 800; line-height: 1.3;
+      color: var(--white);
+      letter-spacing: 0;
+    }
+    .pricing-period { font-size: 0.85rem; color: var(--muted); }
+    .pricing-range { font-size: 0.78rem; color: var(--teal); margin-bottom: 28px; }
+    .pricing-divider {
+      height: 1px;
+      background: rgba(0,180,212,0.12);
+      margin-bottom: 24px;
+    }
+    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 0.88rem; color: var(--gray-200);
+      padding: 7px 0;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--teal);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pricing-leads {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0,180,212,0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+    }
+    .pricing-leads-num {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--teal-light);
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .pricing-leads-label { font-size: 0.8rem; color: var(--muted); }
+    .btn-pricing {
+      display: block; width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-pricing-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: var(--navy-deep);
+    }
+    .btn-pricing-primary:hover {
+      box-shadow: 0 8px 30px rgba(0,180,212,0.4);
+      transform: translateY(-1px);
+    }
+    .btn-pricing-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(0,180,212,0.35);
+    }
+    .btn-pricing-outline:hover {
+      border-color: var(--teal);
+      background: rgba(0,180,212,0.08);
+    }
+
+    /* ─── STATS BELT ─── */
+    .stats-belt {
+      padding: 70px 6vw;
+      background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(0,144,168,0.15) 50%, var(--navy-mid) 100%);
+      border-top: 1px solid rgba(0,180,212,0.12);
+      border-bottom: 1px solid rgba(0,180,212,0.12);
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 0;
+      text-align: center;
+    }
+    .stat-item {
+      border-right: 1px solid rgba(0,180,212,0.12);
+      padding: 10px;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: 0;
+      display: inline-block;
+      padding-bottom: 0.05em;
+      background: linear-gradient(135deg, var(--white) 30%, var(--teal-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 120px 6vw;
+      background: var(--navy-dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,180,212,0.12) 0%, transparent 70%);
+    }
+    .cta-section .section-label { justify-content: center; }
+    .cta-section .section-label::before { display: none; }
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: 0;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cta-section p {
+      font-size: 1.05rem;
+      color: var(--gray-200);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      position: relative;
+    }
+    .cta-buttons {
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+      position: relative;
+    }
+    .cta-note {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      position: relative;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-deep);
+      border-top: 1px solid rgba(0,180,212,0.1);
+      padding: 60px 6vw 40px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 32px;
+    }
+    .footer-brand {}
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .footer-logo img { height: 80px; filter: drop-shadow(0 0 12px rgba(255,255,255,0.9)) drop-shadow(0 0 32px rgba(0,180,212,0.5)); }
+    .footer-logo span {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700;
+    }
+    .footer-tagline {
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.6; max-width: 280px;
+    }
+    .footer-col h5 {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-100);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--teal-light); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); }
+    .footer-copy strong { color: var(--teal-light); }
+    .footer-legal {
+      display: flex; gap: 20px;
+    }
+    .footer-legal a {
+      font-size: 0.78rem; color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--teal-light); }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero-visual { display: none; }
+      .hero-content { max-width: 100%; }
+      .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .how-inner { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+      .pricing-card.featured { transform: none; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 70px 5vw; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="output-onlinepngtools.png" alt="NurseFlow.AI" />
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" class="nav-cta">Book a Demo</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-content">
+<h1>Your Agency's<br /><em>Automated Nurse</em><br />Acquisition Engine</h1>
+    <p>NurseFlow.AI installs a fully automated lead generation and AI qualification system into your staffing agency — delivering qualified nurse candidates within days, not weeks.</p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        See Pricing
+      </a>
+      <a href="#how" class="btn-secondary">How It Works →</a>
+    </div>
+  </div>
+
+  <!-- Floating Dashboard Card -->
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="hero-card-title">AI Qualification Feed</div>
+        <div class="status-badge">
+          <div class="status-dot"></div>
+          Live
+        </div>
+      </div>
+      <div class="lead-item">
+        <div class="lead-avatar">JM</div>
+        <div class="lead-info">
+          <div class="lead-name">Jessica M.</div>
+          <div class="lead-spec">ICU RN · 6 years · NY</div>
+        </div>
+        <div class="lead-score score-high">98% Match</div>
+      </div>
+      <div class="lead-item">
+        <div class="lead-avatar">DL</div>
+        <div class="lead-info">
+          <div class="lead-name">David L.</div>
+          <div class="lead-spec">Telemetry RN · 4 years · CA</div>
+        </div>
+        <div class="lead-score score-high">94% Match</div>
+      </div>
+      <div class="lead-item">
+        <div class="lead-avatar">SR</div>
+        <div class="lead-info">
+          <div class="lead-name">Sarah R.</div>
+          <div class="lead-spec">ER RN · 8 years · FL</div>
+        </div>
+        <div class="lead-score score-med">87% Match</div>
+      </div>
+      <div class="lead-item">
+        <div class="lead-avatar">KP</div>
+        <div class="lead-info">
+          <div class="lead-name">Karen P.</div>
+          <div class="lead-spec">OR RN · 5 years · TX</div>
+        </div>
+        <div class="lead-score score-med">82% Match</div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">47</span>
+          <span class="hero-stat-label">Today's Leads</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">91%</span>
+          <span class="hero-stat-label">Qualified Rate</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">4m</span>
+          <span class="hero-stat-label">Avg Response</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Facebook Ad Funnels
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      AI Nurse Qualification
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Automated SMS + Email
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Vars Health ATS Integration
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Monthly Creative Production
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      ICU · ER · Telemetry · OR
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Travel Nurse Pipelines
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Facebook Ad Funnels
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      AI Nurse Qualification
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Automated SMS + Email
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Vars Health ATS Integration
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Monthly Creative Production
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      ICU · ER · Telemetry · OR
+    </div>
+    <div class="marquee-item">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      Travel Nurse Pipelines
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ─── -->
+<section class="problem" id="problem">
+  <div class="section-label">The Problem</div>
+  <div class="section-heading">Healthcare staffing is broken.<br />Manual sourcing can't scale.</div>
+
+  <div class="problem-grid">
+    <ul class="problem-list">
+      <li class="reveal">
+        <div class="problem-icon">⏳</div>
+        <div class="problem-text">
+          <strong>Slow Time-to-Lead</strong>
+          <p>Manual sourcing through job boards and cold calls takes days. Your competitors are moving faster.</p>
+        </div>
+      </li>
+      <li class="reveal reveal-delay-1">
+        <div class="problem-icon">💸</div>
+        <div class="problem-text">
+          <strong>Inconsistent Pipeline</strong>
+          <p>Feast-or-famine lead flow makes revenue unpredictable and stresses your recruiting team.</p>
+        </div>
+      </li>
+      <li class="reveal reveal-delay-2">
+        <div class="problem-icon">🔍</div>
+        <div class="problem-text">
+          <strong>Unqualified Leads Waste Time</strong>
+          <p>Recruiters spend hours screening nurses who don't meet basic criteria — specialty, experience, or availability.</p>
+        </div>
+      </li>
+      <li class="reveal reveal-delay-3">
+        <div class="problem-icon">🔗</div>
+        <div class="problem-text">
+          <strong>ATS Workflow Gaps</strong>
+          <p>Leads from ads and chatbots never make it into Vars Health or your CRM without manual data entry.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="solution-box reveal reveal-delay-1">
+      <h3>NurseFlow.AI closes the gap — end to end.</h3>
+      <p>We built this system inside a real staffing agency. It replaces manual sourcing with a fully automated acquisition engine — from first ad impression to qualified candidate in your ATS.</p>
+      <div class="solution-metrics">
+        <div class="metric-box">
+          <span class="metric-num counter" data-target="4">0</span>
+          <span class="metric-label">Min avg. response time</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num counter" data-target="91" data-suffix="%">0</span>
+          <span class="metric-label">Qualified lead rate</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num counter" data-target="100" data-suffix="+">0</span>
+          <span class="metric-label">Leads / month (Growth)</span>
+        </div>
+        <div class="metric-box">
+          <span class="metric-num counter" data-target="3" data-suffix="x">0</span>
+          <span class="metric-label">Faster time-to-pipeline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features" id="features">
+  <div class="features-header">
+    <div class="section-label">Core System</div>
+    <h2 class="section-heading reveal">Five engines.<br />One unified system.</h2>
+    <p class="section-sub reveal reveal-delay-1">Everything your agency needs to generate, qualify, and place nurse candidates — without adding headcount.</p>
+  </div>
+
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-num">001</div>
+      <div class="feature-icon">📡</div>
+      <h3>Lead Generation Engine</h3>
+      <p>High-converting Facebook ad funnels targeting ICU, ER, Telemetry, and OR nurses by specialty and geography. We build, launch, and manage your campaigns.</p>
+      <span class="feature-tag">→ Facebook Ads + Messenger Flows</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">002</div>
+      <div class="feature-icon">🤖</div>
+      <h3>AI Qualification Layer</h3>
+      <p>A conversational AI chatbot pre-screens every lead for specialty, years of experience, location preference, and availability — filtering unqualified candidates automatically.</p>
+      <span class="feature-tag">→ Messenger / SMS Chatbot</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">003</div>
+      <div class="feature-icon">✉️</div>
+      <h3>Automated Follow-Up</h3>
+      <p>Instant SMS + email responses to new leads. Drip sequences that nurture cold leads back into your pipeline. Re-engagement campaigns for inactive candidates.</p>
+      <span class="feature-tag">→ SMS + Email Drip</span>
+    </div>
+  </div>
+  <div class="features-grid-bottom reveal reveal-delay-1">
+    <div class="feature-card" style="border-radius:0 0 0 20px">
+      <div class="feature-num">004</div>
+      <div class="feature-icon">🔗</div>
+      <h3>ATS / CRM Integration</h3>
+      <p>Qualified candidates are pushed automatically into Vars Health (or your CRM) — tagged by specialty, state, and pay expectations. Zero manual data entry for your recruiters.</p>
+      <span class="feature-tag">→ Vars Health + API Sync</span>
+    </div>
+    <div class="feature-card" style="border-radius:0 0 20px 0">
+      <div class="feature-num">005</div>
+      <div class="feature-icon">🎬</div>
+      <h3>Monthly Creative Engine</h3>
+      <p>Every month: 2 static ad creatives and 1 short-form video ad. Specialty-specific messaging with pay-based hooks ("Up to $3,000/week") proven to drive qualified clicks.</p>
+      <span class="feature-tag">→ 2 Statics + 1 Video / Month</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div>
+      <div class="section-label reveal">The Process</div>
+      <h2 class="section-heading reveal reveal-delay-1">From ad click to<br />ATS in 4 minutes.</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin-bottom:40px;">NurseFlow.AI handles the entire acquisition loop — so your recruiters only touch qualified, high-intent candidates.</p>
+
+      <ul class="steps">
+        <li class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h4>Targeted Facebook Ads Fire</h4>
+            <p>We deploy specialty-specific ad creatives targeting nurses in your target markets. High-converting Messenger flows capture interest instantly.</p>
+          </div>
+        </li>
+        <li class="step reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h4>AI Chatbot Qualifies in Real-Time</h4>
+            <p>Every new lead enters a conversational screening flow — specialty, experience, location, and availability are confirmed within minutes.</p>
+          </div>
+        </li>
+        <li class="step reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h4>Automated Follow-Up Engages</h4>
+            <p>Qualified leads receive an instant personalized SMS + email. Cold leads enter a drip sequence to re-engage over time.</p>
+          </div>
+        </li>
+        <li class="step reveal reveal-delay-3">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h4>Pipeline Lands in Your ATS</h4>
+            <p>Qualified candidates sync to Vars Health automatically — tagged, categorized, and ready for recruiter outreach. No manual data entry.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="how-visual">
+        <div class="pipeline-stage">
+          <div class="pipeline-label">Ad Impressions <span>12,480 / mo</span></div>
+          <div class="pipeline-bar"><div class="pipeline-fill" style="width:95%"></div></div>
+        </div>
+        <div class="pipeline-stage">
+          <div class="pipeline-label">Messenger Leads <span>247 / mo</span></div>
+          <div class="pipeline-bar"><div class="pipeline-fill" style="width:72%"></div></div>
+        </div>
+        <div class="pipeline-stage">
+          <div class="pipeline-label">AI Qualified <span>91 / mo</span></div>
+          <div class="pipeline-bar"><div class="pipeline-fill" style="width:54%"></div></div>
+        </div>
+        <div class="pipeline-stage">
+          <div class="pipeline-label">ATS Synced <span>91 / mo</span></div>
+          <div class="pipeline-bar"><div class="pipeline-fill" style="width:54%"></div></div>
+        </div>
+        <div class="pipeline-stage" style="margin-bottom:0">
+          <div class="pipeline-label">Submissions <span>24 / mo</span></div>
+          <div class="pipeline-bar"><div class="pipeline-fill" style="width:30%"></div></div>
+        </div>
+        <div class="how-bottom-stats">
+          <div class="how-stat">
+            <span class="how-stat-num">$14</span>
+            <span class="how-stat-label">Cost / Lead</span>
+          </div>
+          <div class="how-stat">
+            <span class="how-stat-num">$38</span>
+            <span class="how-stat-label">Cost / Qual. Lead</span>
+          </div>
+          <div class="how-stat">
+            <span class="how-stat-num">4 min</span>
+            <span class="how-stat-label">Response Time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BELT ─── -->
+<div class="stats-belt">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number"><span class="counter" data-target="40">0</span>+</div>
+      <div class="stat-label">Leads / Month (Starter)</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number"><span class="counter" data-target="100">0</span>+</div>
+      <div class="stat-label">Leads / Month (Growth)</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number">4<span style="font-size:1.8rem">min</span></div>
+      <div class="stat-label">Average Time to First Contact</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">ATS Auto-Sync</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <div class="section-label reveal">Pricing</div>
+    <h2 class="section-heading reveal reveal-delay-1">Predictable investment.<br />Measurable results.</h2>
+    <p class="section-sub reveal reveal-delay-2">Choose the plan that matches your agency's current volume. All plans include setup, creative, and full system management.</p>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- STARTER -->
+    <div class="pricing-card reveal">
+      <div class="pricing-tier">Tier 01</div>
+      <div class="pricing-name">Starter</div>
+      <div class="pricing-desc">Ideal for agencies testing AI-driven sourcing and building their first automated pipeline.</div>
+      <div class="pricing-setup">$1,500 one-time setup</div>
+      <div class="pricing-main">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">750</span>
+        <span class="pricing-period">/mo</span>
+      </div>
+      <div class="pricing-range">Ranges $750 – $1,000/mo</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>1 funnel</li>
+        <li>1 ad set</li>
+        <li>AI lead qualification</li>
+        <li>Designed to generate consistent inbound nurse leads</li>
+        <li>Ideal for agencies testing AI-driven sourcing</li>
+      </ul>
+      <a href="#contact" class="btn-pricing btn-pricing-outline">Get Started</a>
+    </div>
+
+    <!-- GROWTH (featured) -->
+    <div class="pricing-card featured reveal reveal-delay-1">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-tier">Tier 02</div>
+      <div class="pricing-name">Growth</div>
+      <div class="pricing-desc">Optimized for scaling lead flow and recruiter efficiency across your agency.</div>
+      <div class="pricing-setup">$2,500 one-time setup</div>
+      <div class="pricing-main">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">1,500</span>
+        <span class="pricing-period">/mo</span>
+      </div>
+      <div class="pricing-range">Ranges $1,500 – $2,000/mo</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Multiple ad sets</li>
+        <li>AI + SMS/email follow-up</li>
+        <li>CRM/ATS sync (Vars Health)</li>
+        <li>Optimized for scaling lead flow and recruiter efficiency</li>
+      </ul>
+      <a href="#contact" class="btn-pricing btn-pricing-primary">Get Started</a>
+    </div>
+
+    <!-- PERFORMANCE -->
+    <div class="pricing-card reveal reveal-delay-2">
+      <div class="pricing-tier">Tier 03</div>
+      <div class="pricing-name">Performance</div>
+      <div class="pricing-desc">Built for agencies aggressively expanding pipeline across multiple markets.</div>
+      <div class="pricing-setup">$3,500+ one-time setup</div>
+      <div class="pricing-main">
+        <span class="pricing-currency">$</span>
+        <span class="pricing-amount">2,500</span>
+        <span class="pricing-period">/mo+</span>
+      </div>
+      <div class="pricing-range">Starting at $2,500+/mo</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Multi-market campaigns</li>
+        <li>Retargeting + scaling strategy</li>
+        <li>Weekly optimization + reporting</li>
+        <li>Built for agencies aggressively expanding pipeline</li>
+      </ul>
+      <a href="#contact" class="btn-pricing btn-pricing-outline">Contact Us</a>
+    </div>
+
+  </div>
+
+  <!-- Guarantee Tagline -->
+  <div class="pricing-guarantee reveal" style="margin-top:48px;text-align:center;max-width:720px;margin-left:auto;margin-right:auto;">
+    <div style="display:inline-flex;align-items:flex-start;gap:16px;background:rgba(0,180,212,0.07);border:1px solid rgba(0,180,212,0.25);border-radius:14px;padding:24px 32px;text-align:left;">
+      <span style="font-size:1.6rem;flex-shrink:0;margin-top:2px;">🛡️</span>
+      <div>
+        <p style="font-size:1rem;color:var(--white);font-weight:600;line-height:1.6;margin-bottom:0;">"We typically see agencies generating qualified nurse leads within the first 7–10 days. If not, we continue optimizing at no additional cost until we do."</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contact">
+  <div class="section-label reveal">Get Started</div>
+  <h2 class="reveal reveal-delay-1">Ready to build your<br /><em style="font-style:normal;display:inline-block;padding-bottom:0.08em;background:linear-gradient(135deg,var(--teal-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">automated nurse pipeline?</em></h2>
+  <p class="reveal reveal-delay-2">Book a 30-minute strategy call. We'll map out your current workflow, identify your biggest bottlenecks, and show you exactly how NurseFlow.AI can start delivering leads within 14 days.</p>
+  <div class="cta-buttons reveal reveal-delay-3">
+    <a href="mailto:hello@nurseflow.ai" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      Book a Strategy Call
+    </a>
+    <a href="#pricing" class="btn-secondary" style="font-size:1rem;padding:16px 36px;">View Pricing Plans</a>
+  </div>
+  <p class="cta-note reveal reveal-delay-4">No long-term contracts required on Starter. Cancel anytime after 90 days.</p>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="output-onlinepngtools.png" alt="NurseFlow.AI" />
+      </div>
+      <p class="footer-tagline">The automated nurse acquisition system built inside a real staffing agency — and proven in the field.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Product</h5>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Book a Demo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Integrations</h5>
+      <ul>
+        <li><a href="#">Vars Health ATS</a></li>
+        <li><a href="#">Facebook Ads</a></li>
+        <li><a href="#">SMS Platforms</a></li>
+        <li><a href="#">Custom CRM</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Specialties</h5>
+      <ul>
+        <li><a href="#">ICU / Critical Care</a></li>
+        <li><a href="#">Emergency Room</a></li>
+        <li><a href="#">Telemetry</a></li>
+        <li><a href="#">Operating Room</a></li>
+        <li><a href="#">All Nurse/Allied Specialties</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <strong>NurseFlow.AI</strong>. All rights reserved. Built for healthcare staffing.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── COUNTER ANIMATION ───
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+  // ─── NAVBAR SCROLL ───
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.background = 'rgba(255,255,255,0.97)';
+  });
+</script>
+</body>
+</html>

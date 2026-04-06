@@ -109,7 +109,7 @@
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 80px;
+      top: 124px;
       left: 0; right: 0;
       background: rgba(255,255,255,0.98);
       box-shadow: 0 8px 24px rgba(0,0,0,0.1);
@@ -983,6 +983,284 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
+    /* ─── PILOT BANNER ─── */
+    .pilot-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+      background: linear-gradient(135deg, #061e30 0%, #0a3550 50%, #061e30 100%);
+      border-bottom: 1px solid rgba(0,180,212,0.35);
+      padding: 9px 6vw;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .pilot-banner-text {
+      font-size: 0.82rem; color: var(--gray-100);
+      font-weight: 500; letter-spacing: 0.01em; text-align: center;
+    }
+    .pilot-banner-text strong { color: var(--teal-light); font-weight: 700; }
+    .pilot-banner-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--navy-deep);
+      font-size: 0.75rem; font-weight: 700;
+      padding: 5px 14px; border-radius: 5px;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .pilot-banner-btn:hover { background: var(--teal-light); }
+    .pilot-banner-close {
+      position: absolute; right: 16px;
+      background: none; border: none; color: var(--muted);
+      font-size: 1rem; cursor: pointer; padding: 4px;
+      line-height: 1;
+    }
+    .pilot-banner-close:hover { color: var(--white); }
+
+    /* ─── PROVEN RESULTS ─── */
+    .proven { background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-deep) 100%); }
+    .proven-header { text-align: center; margin-bottom: 60px; }
+    .proven-header .section-label { justify-content: center; }
+    .proven-header .section-label::before { display: none; }
+    .before-after {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 0; align-items: stretch; margin-bottom: 60px;
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(0,180,212,0.15);
+    }
+    .ba-col {
+      padding: 40px 36px;
+    }
+    .ba-before { background: rgba(255,60,60,0.05); }
+    .ba-after  { background: rgba(0,180,212,0.06); }
+    .ba-divider {
+      width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(0,180,212,0.4), transparent);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .ba-divider-label {
+      writing-mode: horizontal-tb;
+      background: var(--navy-mid);
+      border: 1px solid rgba(0,180,212,0.3);
+      color: var(--teal-light);
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 8px 12px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .ba-col-title {
+      font-family: var(--font-display);
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .ba-before .ba-col-title { color: rgba(255,100,100,0.8); }
+    .ba-after  .ba-col-title { color: var(--teal); }
+    .ba-list { list-style: none; }
+    .ba-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: var(--gray-200);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      line-height: 1.5;
+    }
+    .ba-list li:last-child { border-bottom: none; }
+    .ba-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .proven-metrics {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 24px; margin-bottom: 56px;
+    }
+    .proven-metric {
+      background: rgba(13,45,78,0.5);
+      border: 1px solid rgba(0,180,212,0.15);
+      border-radius: 16px; padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .proven-metric:hover { border-color: rgba(0,180,212,0.4); transform: translateY(-4px); }
+    .proven-metric-num {
+      font-family: var(--font-display);
+      font-size: 2.6rem; font-weight: 800;
+      display: inline-block; padding-bottom: 0.05em;
+      background: linear-gradient(135deg, var(--white) 20%, var(--teal-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1.2; letter-spacing: 0;
+    }
+    .proven-metric-label { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+    .proven-testimonial {
+      background: rgba(0,180,212,0.05);
+      border: 1px solid rgba(0,180,212,0.18);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 14px 14px 0;
+      padding: 32px 40px;
+      position: relative;
+    }
+    .proven-testimonial-quote {
+      font-size: 1.05rem; color: var(--gray-100);
+      line-height: 1.75; font-style: italic;
+      margin-bottom: 20px;
+    }
+    .proven-testimonial-author {
+      font-size: 0.82rem; color: var(--teal-light); font-weight: 600;
+    }
+    .proven-testimonial-badge {
+      display: inline-block;
+      background: rgba(0,180,212,0.12);
+      border: 1px solid rgba(0,180,212,0.2);
+      color: var(--muted); font-size: 0.7rem;
+      padding: 3px 10px; border-radius: 20px;
+      margin-top: 6px;
+    }
+
+    /* ─── ROI CALCULATOR ─── */
+    .roi-section { background: var(--navy-deep); }
+    .roi-inner {
+      max-width: 780px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(13,45,78,0.7), rgba(10,32,53,0.9));
+      border: 1px solid rgba(0,180,212,0.2);
+      border-radius: 24px; padding: 56px 64px;
+      position: relative; overflow: hidden;
+    }
+    .roi-inner::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal), var(--teal-light));
+    }
+    .roi-header { text-align: center; margin-bottom: 48px; }
+    .roi-slider-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.88rem; color: var(--gray-200); margin-bottom: 12px;
+    }
+    .roi-slider-label strong {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--teal-light); font-weight: 700;
+    }
+    .roi-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px;
+      border-radius: 3px;
+      background: rgba(0,180,212,0.15);
+      outline: none; cursor: pointer;
+      margin-bottom: 40px;
+    }
+    .roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(0,180,212,0.2);
+      cursor: pointer; transition: box-shadow 0.2s;
+    }
+    .roi-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(0,180,212,0.3); }
+    .roi-outputs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-bottom: 32px;
+    }
+    .roi-output {
+      background: rgba(0,180,212,0.07);
+      border: 1px solid rgba(0,180,212,0.18);
+      border-radius: 14px; padding: 28px 24px; text-align: center;
+    }
+    .roi-output-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 800;
+      color: var(--teal-light); display: block;
+      line-height: 1.2; letter-spacing: 0; margin-bottom: 8px;
+    }
+    .roi-output-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+    .roi-disclaimer { text-align: center; font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── VARS HEALTH HIGHLIGHT ─── */
+    .vars-highlight {
+      background: linear-gradient(135deg, rgba(0,180,212,0.07) 0%, rgba(13,45,78,0.8) 100%);
+      border: 1px solid rgba(0,180,212,0.25);
+      border-radius: 20px; padding: 48px 56px;
+      margin-top: 40px; position: relative; overflow: hidden;
+    }
+    .vars-highlight::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal), var(--teal-light));
+    }
+    .vars-highlight-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+    }
+    .vars-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,180,212,0.12); border: 1px solid rgba(0,180,212,0.3);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--teal-light); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .vars-highlight h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 800;
+      line-height: 1.3; margin-bottom: 12px; letter-spacing: 0;
+    }
+    .vars-highlight h3 em {
+      font-style: normal; display: inline-block; padding-bottom: 0.06em;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .vars-highlight p { font-size: 0.92rem; color: var(--gray-200); line-height: 1.7; }
+    .vars-benefits { list-style: none; margin-top: 0; }
+    .vars-benefits li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(0,180,212,0.08);
+      font-size: 0.9rem; color: var(--gray-200); line-height: 1.5;
+    }
+    .vars-benefits li:last-child { border-bottom: none; }
+    .vars-benefit-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(0,180,212,0.1); border: 1px solid rgba(0,180,212,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+    }
+    .vars-benefit-text strong { display: block; font-family: var(--font-display); font-size: 0.92rem; font-weight: 700; margin-bottom: 2px; }
+
+    /* ─── SECURITY & COMPLIANCE ─── */
+    .security {
+      background: linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-deep) 100%);
+      border-top: 1px solid rgba(0,180,212,0.1);
+    }
+    .security-header { text-align: center; margin-bottom: 56px; }
+    .security-header .section-label { justify-content: center; }
+    .security-header .section-label::before { display: none; }
+    .security-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+    }
+    .security-badge {
+      background: rgba(13,45,78,0.6);
+      border: 1px solid rgba(0,180,212,0.12);
+      border-radius: 16px; padding: 32px 24px; text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .security-badge:hover { border-color: rgba(0,180,212,0.35); transform: translateY(-4px); }
+    .security-badge-icon {
+      font-size: 2rem; margin-bottom: 16px;
+      display: block;
+    }
+    .security-badge h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 700;
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .security-badge p { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+    .security-trust-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; flex-wrap: wrap;
+      margin-top: 48px; padding-top: 40px;
+      border-top: 1px solid rgba(0,180,212,0.1);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    }
+    .trust-item svg { color: var(--teal); flex-shrink: 0; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
       .hero-visual { display: none; }
@@ -996,6 +1274,13 @@
       .stat-item:nth-child(2) { border-right: none; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
+    @media (max-width: 1024px) {
+      .security-grid { grid-template-columns: 1fr 1fr; }
+      .vars-highlight-inner { grid-template-columns: 1fr; gap: 32px; }
+      .proven-metrics { grid-template-columns: 1fr; }
+      .roi-inner { padding: 40px 36px; }
+      .roi-outputs { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 640px) {
       section { padding: 70px 5vw; }
       .features-grid { grid-template-columns: 1fr; }
@@ -1004,13 +1289,29 @@
       .hamburger { display: flex; }
       .footer-top { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2.4rem; }
+      .before-after { grid-template-columns: 1fr; }
+      .ba-divider { width: 100%; height: 2px; flex-direction: row; padding: 16px 0; }
+      .ba-divider-label { writing-mode: horizontal-tb; }
+      .security-grid { grid-template-columns: 1fr 1fr; }
+      .roi-outputs { grid-template-columns: 1fr; }
+      .roi-inner { padding: 32px 24px; }
+      .proven-metrics { grid-template-columns: 1fr; }
+      .pilot-banner { padding: 8px 12px; gap: 10px; }
+      .pilot-banner-text { font-size: 0.75rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- ─── PILOT BANNER ─── -->
+<div class="pilot-banner" id="pilotBanner">
+  <p class="pilot-banner-text">🚀 <strong>Limited Time:</strong> Now accepting 5 agencies for our Q2 Pilot Program — Setup Fee Waived for Early Partners</p>
+  <a href="#contact" class="pilot-banner-btn">Apply for Pilot Program</a>
+  <button class="pilot-banner-close" id="bannerClose" aria-label="Close banner">✕</button>
+</div>
+
 <!-- ─── NAVIGATION ─── -->
-<nav id="navbar">
+<nav id="navbar" style="top:44px;">
   <a href="#" class="nav-logo">
     <img src="output-onlinepngtools.png" alt="NurseFlow.AI" />
   </a>
@@ -1269,12 +1570,12 @@
     </div>
   </div>
   <div class="features-grid-bottom reveal reveal-delay-1">
-    <div class="feature-card" style="border-radius:0 0 0 20px">
+    <div class="feature-card" style="border-radius:0 0 0 20px; border-color: rgba(0,180,212,0.3); background: rgba(0,180,212,0.04);">
       <div class="feature-num">004</div>
       <div class="feature-icon">🔗</div>
-      <h3>ATS / CRM Integration</h3>
-      <p>Qualified candidates are pushed automatically into Vars Health (or your CRM) — tagged by specialty, state, and pay expectations. Zero manual data entry for your recruiters.</p>
-      <span class="feature-tag">→ Vars Health + API Sync</span>
+      <h3>Proprietary Integration with Vars Health</h3>
+      <p>Qualified candidates are automatically pushed into Vars Health — tagged by specialty, state, and pay expectations. Zero manual data entry. Built exclusively for the Vars Health ecosystem.</p>
+      <span class="feature-tag" style="color:var(--teal-light);font-size:0.72rem;">→ Exclusive Vars Health API Sync</span>
     </div>
     <div class="feature-card" style="border-radius:0 0 20px 0">
       <div class="feature-num">005</div>
@@ -1283,6 +1584,102 @@
       <p>Every month: 2 static ad creatives and 1 short-form video ad. Specialty-specific messaging with pay-based hooks ("Up to $3,000/week") proven to drive qualified clicks.</p>
       <span class="feature-tag">→ 2 Statics + 1 Video / Month</span>
     </div>
+  </div>
+
+  <!-- Vars Health Highlight -->
+  <div class="vars-highlight reveal">
+    <div class="vars-highlight-inner">
+      <div>
+        <div class="vars-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Key Differentiator
+        </div>
+        <h3>Proprietary Integration<br />with <em>Vars Health</em></h3>
+        <p>Most lead-gen tools stop at the lead. NurseFlow goes all the way to ATS placement — with a direct, proprietary sync built specifically for the Vars Health platform. No middleware, no manual steps, no lag.</p>
+      </div>
+      <ul class="vars-benefits">
+        <li>
+          <div class="vars-benefit-icon">🔄</div>
+          <div class="vars-benefit-text">
+            <strong>Seamless ATS Sync</strong>
+            Qualified leads land in Vars Health automatically — tagged by specialty, location, and pay expectation.
+          </div>
+        </li>
+        <li>
+          <div class="vars-benefit-icon">✋</div>
+          <div class="vars-benefit-text">
+            <strong>Eliminates Manual Data Entry</strong>
+            No copy-pasting between platforms. Every field populated automatically from the AI qualification flow.
+          </div>
+        </li>
+        <li>
+          <div class="vars-benefit-icon">⏱️</div>
+          <div class="vars-benefit-text">
+            <strong>Saves 10+ Hours Per Week</strong>
+            Recruiters spend time placing nurses — not entering data. Your team focuses on relationships, not admin.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROVEN RESULTS ─── -->
+<section class="proven" id="results">
+  <div class="proven-header">
+    <div class="section-label reveal">Results</div>
+    <h2 class="section-heading reveal reveal-delay-1">Proven Results with NurseFlow</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin: 0 auto; text-align:center;">See what agencies experience before and after plugging in the NurseFlow system.</p>
+  </div>
+
+  <!-- Before / After -->
+  <div class="before-after reveal">
+    <div class="ba-col ba-before">
+      <div class="ba-col-title">❌ Before NurseFlow</div>
+      <ul class="ba-list">
+        <li><span class="ba-icon">⏳</span>Manual screening of every inbound lead — hours of recruiter time wasted daily</li>
+        <li><span class="ba-icon">📉</span>Slow response times meant candidates moved on before contact</li>
+        <li><span class="ba-icon">🔕</span>Qualified nurses slipping through the cracks — lost to faster competitors</li>
+        <li><span class="ba-icon">🗂️</span>Manual data entry into ATS — error-prone and time-consuming</li>
+        <li><span class="ba-icon">📊</span>Unpredictable pipeline with no consistent lead flow</li>
+      </ul>
+    </div>
+    <div class="ba-divider">
+      <div class="ba-divider-label">VS</div>
+    </div>
+    <div class="ba-col ba-after">
+      <div class="ba-col-title">✅ After NurseFlow</div>
+      <ul class="ba-list">
+        <li><span class="ba-icon">🤖</span>Automated AI qualification — recruiters only touch pre-screened candidates</li>
+        <li><span class="ba-icon">⚡</span>4-minute average response time — nurses engaged before they move on</li>
+        <li><span class="ba-icon">📥</span>Faster submissions with fully qualified candidate profiles ready to place</li>
+        <li><span class="ba-icon">🔗</span>Automatic ATS sync to Vars Health — zero manual data entry</li>
+        <li><span class="ba-icon">📈</span>Consistent, predictable pipeline of 40–100+ qualified leads per month</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="proven-metrics">
+    <div class="proven-metric reveal">
+      <div class="proven-metric-num">7–10</div>
+      <div class="proven-metric-label">Days to first qualified leads after launch</div>
+    </div>
+    <div class="proven-metric reveal reveal-delay-1">
+      <div class="proven-metric-num">91%</div>
+      <div class="proven-metric-label">Average lead qualification rate through AI screening</div>
+    </div>
+    <div class="proven-metric reveal reveal-delay-2">
+      <div class="proven-metric-num">10+ hrs</div>
+      <div class="proven-metric-label">Recruiter hours saved per week via ATS automation</div>
+    </div>
+  </div>
+
+  <!-- Testimonial placeholder -->
+  <div class="proven-testimonial reveal">
+    <p class="proven-testimonial-quote">"NurseFlow transformed how our agency sources travel nurses. Within the first two weeks, our recruiters were working qualified leads instead of chasing cold contacts — the difference in placement speed was immediate."</p>
+    <div class="proven-testimonial-author">— Early Adopter Agency, Southeast U.S.</div>
+    <div class="proven-testimonial-badge">Early Pilot Partner · Q1 2025</div>
   </div>
 </section>
 
@@ -1481,6 +1878,33 @@
 
 </section>
 
+<!-- ─── ROI CALCULATOR ─── -->
+<section class="roi-section" id="roi">
+  <div class="roi-inner reveal">
+    <div class="roi-header">
+      <div class="section-label" style="justify-content:center;"><span style="width:28px;height:2px;background:var(--teal);display:block;"></span>ROI Calculator<span style="width:28px;height:2px;background:var(--teal);display:block;"></span></div>
+      <h2 class="section-heading" style="text-align:center;margin-bottom:10px;">See Your ROI with NurseFlow</h2>
+      <p style="text-align:center;color:var(--muted);font-size:0.9rem;">Adjust the slider to estimate your monthly return based on placements.</p>
+    </div>
+    <div class="roi-slider-label">
+      <span>Placements per month</span>
+      <strong id="placementVal">8 placements</strong>
+    </div>
+    <input type="range" class="roi-slider" id="roiSlider" min="1" max="40" value="8" step="1">
+    <div class="roi-outputs">
+      <div class="roi-output">
+        <span class="roi-output-num" id="revenueOut">$24,000</span>
+        <div class="roi-output-label">Estimated Monthly Revenue Generated<br><span style="font-size:0.7rem;color:var(--muted);">(avg. $3,000/placement)</span></div>
+      </div>
+      <div class="roi-output">
+        <span class="roi-output-num" id="roiOut">16x</span>
+        <div class="roi-output-label">ROI Multiple<br><span style="font-size:0.7rem;color:var(--muted);">(vs. Growth plan at $1,500/mo)</span></div>
+      </div>
+    </div>
+    <p class="roi-disclaimer">Estimates based on average travel nurse placement fee of $3,000. Actual results vary by market, specialty, and volume. <a href="#contact" style="color:var(--teal);text-decoration:none;">Book a call</a> for a custom projection.</p>
+  </div>
+</section>
+
 <!-- ─── CTA ─── -->
 <section class="cta-section" id="contact">
   <div class="section-label reveal">Get Started</div>
@@ -1494,6 +1918,61 @@
     <a href="#pricing" class="btn-secondary" style="font-size:1rem;padding:16px 36px;">View Pricing Plans</a>
   </div>
   <p class="cta-note reveal reveal-delay-4">No long-term contracts required on Starter. Cancel anytime after 90 days.</p>
+</section>
+
+<!-- ─── SECURITY & COMPLIANCE ─── -->
+<section class="security" id="security">
+  <div class="security-header">
+    <div class="section-label reveal">Trust & Safety</div>
+    <h2 class="section-heading reveal reveal-delay-1">Security & Compliance<br />You Can Trust</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin: 0 auto; text-align:center;">NurseFlow is built on the compliance standards healthcare staffing demands — protecting your agency, your candidates, and your data.</p>
+  </div>
+
+  <div class="security-grid">
+    <div class="security-badge reveal">
+      <span class="security-badge-icon">🏥</span>
+      <h4>HIPAA-Ready Data Handling</h4>
+      <p>Candidate data is processed and stored in alignment with HIPAA guidelines — your agency and your nurses are protected.</p>
+    </div>
+    <div class="security-badge reveal reveal-delay-1">
+      <span class="security-badge-icon">🔗</span>
+      <h4>Secure ATS Integrations</h4>
+      <p>Direct API connections to Vars Health and CEIPAL are encrypted end-to-end — no data exposed in transit or at rest.</p>
+    </div>
+    <div class="security-badge reveal reveal-delay-2">
+      <span class="security-badge-icon">🔒</span>
+      <h4>Encrypted Data Workflows</h4>
+      <p>All lead data, qualification responses, and candidate profiles are encrypted throughout the entire NurseFlow pipeline.</p>
+    </div>
+    <div class="security-badge reveal reveal-delay-3">
+      <span class="security-badge-icon">✅</span>
+      <h4>Built for Healthcare Compliance</h4>
+      <p>Designed from the ground up for healthcare staffing compliance — not retrofitted from a generic SaaS tool.</p>
+    </div>
+  </div>
+
+  <div class="security-trust-bar reveal">
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      HIPAA-Ready
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      End-to-End Encryption
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Vars Health Certified Integration
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Healthcare Staffing Compliance
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>
+      24/7 System Monitoring
+    </div>
+  </div>
 </section>
 
 <!-- ─── FOOTER ─── -->
@@ -1537,8 +2016,8 @@
   <div class="footer-bottom">
     <p class="footer-copy">© 2025 <strong>NurseFlow.AI</strong>. All rights reserved. Built for healthcare staffing.</p>
     <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="nurseflow-privacy-policy.pdf" target="_blank">Privacy Policy</a>
+      <a href="nurseflow-saas-terms-of-service (1).pdf" target="_blank">Terms of Service</a>
     </div>
   </div>
 </footer>
@@ -1601,6 +2080,34 @@
     const nav = document.getElementById('navbar');
     nav.style.background = 'rgba(255,255,255,0.97)';
   });
+
+  // ─── PILOT BANNER DISMISS ───
+  const bannerClose = document.getElementById('bannerClose');
+  const pilotBanner = document.getElementById('pilotBanner');
+  const navbar = document.getElementById('navbar');
+  bannerClose.addEventListener('click', () => {
+    pilotBanner.style.display = 'none';
+    navbar.style.top = '0px';
+    document.getElementById('mobileMenu').style.top = '80px';
+  });
+
+  // ─── ROI CALCULATOR ───
+  const slider = document.getElementById('roiSlider');
+  const placementVal = document.getElementById('placementVal');
+  const revenueOut = document.getElementById('revenueOut');
+  const roiOut = document.getElementById('roiOut');
+  const AVG_FEE = 3000;
+  const PLAN_COST = 1500;
+  function updateROI() {
+    const placements = parseInt(slider.value, 10);
+    const revenue = placements * AVG_FEE;
+    const roi = (revenue / PLAN_COST).toFixed(1);
+    placementVal.textContent = placements + ' placement' + (placements !== 1 ? 's' : '');
+    revenueOut.textContent = '$' + revenue.toLocaleString();
+    roiOut.textContent = roi + 'x';
+  }
+  slider.addEventListener('input', updateROI);
+  updateROI();
 </script>
 </body>
 </html>

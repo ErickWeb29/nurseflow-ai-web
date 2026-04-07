@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Booked — NurseFlow.AI</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;1,6..12,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:   #061726;
+      --navy-dark:   #0a2035;
+      --navy-mid:    #0d2d4e;
+      --teal-dark:   #0091a8;
+      --teal:        #00b4d4;
+      --teal-light:  #4dd8e8;
+      --white:       #ffffff;
+      --muted:       #7a9ab5;
+      --gray-200:    #c8d8e8;
+      --font-display: 'Outfit', sans-serif;
+      --font-body:    'Nunito Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--teal-dark); border-radius: 3px; }
+
+    /* ─── NAV ─── */
+    nav {
+      padding: 12px 6vw;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-logo img {
+      height: 56px;
+      width: auto;
+      filter: drop-shadow(0 2px 8px rgba(0,180,212,0.3));
+    }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 6vw;
+      text-align: center;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,180,212,0.10) 0%, transparent 70%);
+    }
+
+    .checkmark {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(0,180,212,0.12);
+      border: 2px solid rgba(0,180,212,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .checkmark svg { color: var(--teal-light); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+
+    /* ─── WHAT'S NEXT STEPS ─── */
+    .steps {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+      max-width: 700px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: left;
+      flex: 1;
+      min-width: 180px;
+      max-width: 220px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,180,212,0.15);
+      border: 1px solid rgba(0,180,212,0.3);
+      color: var(--teal-light);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .step-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── CONTRACT BLOCK ─── */
+    .contract-block {
+      max-width: 580px;
+      width: 100%;
+      background: rgba(0,180,212,0.05);
+      border: 1px solid rgba(0,180,212,0.25);
+      border-radius: 18px;
+      padding: 32px 36px;
+      text-align: left;
+      margin-bottom: 48px;
+    }
+    .contract-block-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .contract-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .contract-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .contract-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+    .btn-contract {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 13px 26px;
+      border-radius: 9px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,180,212,0.3);
+      transition: all 0.2s;
+    }
+    .btn-contract:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,180,212,0.45);
+    }
+    .contract-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 6vw;
+      text-align: center;
+    }
+    footer p { font-size: 0.8rem; color: var(--muted); }
+    footer a { color: var(--teal); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 560px) {
+      .contract-block { padding: 24px 20px; }
+      .steps { flex-direction: column; align-items: center; }
+      .step-item { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="/">
+    <img src="output-onlinepngtools.png" alt="NurseFlow.AI" class="nav-logo" style="height:56px;filter:drop-shadow(0 2px 8px rgba(0,180,212,0.3));" />
+  </a>
+</nav>
+
+<!-- ─── MAIN ─── -->
+<main>
+
+  <div class="checkmark">
+    <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+
+  <h1>You're booked.<br /><em>We'll talk soon.</em></h1>
+  <p class="subtitle">Your strategy call is confirmed. Check your email for the calendar invite. Before we meet, please take a few minutes to review your service agreement below.</p>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <strong>Check Your Email</strong>
+        <span>Calendar invite + call details sent to your inbox.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <strong>Review the Contract</strong>
+        <span>Read through your service agreement before the call.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <strong>Sign After the Call</strong>
+        <span>We'll send your Adobe Sign link to finalize after we connect.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRACT BLOCK -->
+  <div class="contract-block">
+    <div class="contract-block-header">
+      <div class="contract-icon">📄</div>
+      <div class="contract-title">NurseFlow.AI Service Agreement</div>
+    </div>
+    <p class="contract-desc">Please review this document before your strategy call. It covers your service terms, deliverables, and payment schedule. Your account manager will send you a countersigned copy via Adobe Sign after onboarding is confirmed.</p>
+    <a href="GHL%20Saas%20Buildout/Legal%20Docs/NurseFlow_Contract_Package_2026%20(1).pdf" target="_blank" rel="noopener" class="btn-contract">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Open Service Agreement (PDF)
+    </a>
+    <p class="contract-note">* You are not signing anything by opening this document. Adobe Sign will be sent separately after your call.</p>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>© 2025 NurseFlow.AI · All rights reserved &nbsp;·&nbsp;
+    <a href="nurseflow-privacy-policy.pdf" target="_blank">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="nurseflow-saas-terms-of-service (1).pdf" target="_blank">Terms of Service</a>
+  </p>
+</footer>
+
+</body>
+</html>

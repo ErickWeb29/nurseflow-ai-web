@@ -1311,7 +1311,7 @@
 </div>
 
 <!-- ─── NAVIGATION ─── -->
-<nav id="navbar" style="top:44px;">
+<nav id="navbar">
   <a href="#" class="nav-logo">
     <img src="output-onlinepngtools.png" alt="NurseFlow.AI" />
   </a>
@@ -2085,10 +2085,20 @@
   const bannerClose = document.getElementById('bannerClose');
   const pilotBanner = document.getElementById('pilotBanner');
   const navbar = document.getElementById('navbar');
+
+  function adjustNavTop() {
+    if (pilotBanner.style.display === 'none') return;
+    const bannerH = pilotBanner.offsetHeight;
+    navbar.style.top = bannerH + 'px';
+    document.getElementById('mobileMenu').style.top = (bannerH + navbar.offsetHeight) + 'px';
+  }
+  adjustNavTop();
+  window.addEventListener('resize', adjustNavTop);
+
   bannerClose.addEventListener('click', () => {
     pilotBanner.style.display = 'none';
     navbar.style.top = '0px';
-    document.getElementById('mobileMenu').style.top = '80px';
+    document.getElementById('mobileMenu').style.top = navbar.offsetHeight + 'px';
   });
 
   // ─── ROI CALCULATOR ───
